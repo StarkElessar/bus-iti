@@ -8,6 +8,7 @@ import { createFontFaces, generateWebpImages } from './vite-plugins';
 
 export default defineConfig(({ command }) => {
 	return {
+		base: '/bus-iti',
 		server: {
 			host: '0.0.0.0',
 			port: 3000
@@ -42,7 +43,6 @@ export default defineConfig(({ command }) => {
 			rollupOptions: {
 				input: {
 					index: resolve(__dirname, 'index.html'),
-					module: resolve(__dirname, 'module.html')
 				},
 			},
 		},

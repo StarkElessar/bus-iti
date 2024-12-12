@@ -8,8 +8,11 @@
 		"dev": "vite",
 		"dev:open": "vite --open",
 		"build": "tsc && vite build",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"deploy": "gh-pages -d dist",	
+		"predeploy": "bun run build"
 	},
+	"homepage": "https://StarkElessar.github.io/bus-iti/",
 	"devDependencies": {
 		"@archoleat/stylelint-config-extended-scss": "^1.6.8",
 		"@eslint/js": "^9.1.1",
@@ -24,6 +27,7 @@
 		"autoprefixer": "^10.4.19",
 		"chalk": "^5.3.0",
 		"eslint": "^8.56.0",
+		"gh-pages": "^6.2.0",
 		"gulp": "^5.0.0",
 		"gulp-newer": "^1.4.0",
 		"gulp-webp": "^5.0.0",
