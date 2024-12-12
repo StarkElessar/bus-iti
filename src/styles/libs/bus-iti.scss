@@ -1,0 +1,145 @@
+.bus-iti {
+	--bus-iti-radius: 6px;
+
+	position: relative;
+	display: flex;
+	gap: 10px;
+	width: max(100%, 200px);
+	margin: 0;
+	padding: 0 10px 0 0;
+	outline: none;
+	box-sizing: border-box;
+	line-height: 133%;
+	height: 56px;
+	border-radius: var(--bus-iti-radius);
+	font-size: 16px;
+	font-weight: 400;
+	background-color: #fff;
+	border: 1px solid #d1d1d1;
+	color: #000;
+
+	&.error {
+		border-color: #c43030;
+	}
+
+	&:has(input:focus) {
+		outline: 1px solid rgba(9, 70, 161, 0.5);
+	}
+
+	&__select {
+		padding-inline: 10px;
+		display: flex;
+		align-items: center;
+		flex-shrink: 0;
+		cursor: pointer;
+		border-radius: var(--bus-iti-radius) 0 0 var(--bus-iti-radius);
+		transition: background-color .1s ease-in-out;
+
+		&:hover {
+			background-color: color-mix(in srgb, #000, transparent 98%);
+		}
+
+		&:active {
+			background-color: color-mix(in srgb, #000, transparent 95%);
+		}
+	}
+
+	&__options-flag,
+	&__select-flag {
+		display: inline-block;
+		width: 18px;
+		min-width: 18px;
+		height: 13px;
+		background-color: #c5c5c5;
+		box-shadow: 0 0 5px rgba(0,0,0,0.3);
+		background-image: url("/bus-iti-flags.png");
+		background-repeat: no-repeat;
+
+		&_ru,
+		&[data-phonemask-flag=ru] {
+			background-position: -285px -281px;
+		}
+
+		&_by,
+		&[data-phonemask-flag=by] {
+			background-position: -89px -51px;
+		}
+
+		&_ua,
+		&[data-phonemask-flag=ua] {
+			background-position: -341px -166px;
+		}
+
+		&_kz,
+		&[data-phonemask-flag=kz] {
+			background-position: -117px -189px;
+		}
+
+		&_cn,
+		&[data-phonemask-flag=cn] {
+			background-position: -61px -74px;
+		}
+
+		&_ca,
+		&[data-phonemask-flag=ca] {
+			background-position: -145px -51px;
+		}
+
+		&_bg,
+		&[data-phonemask-flag=bg] {
+			background-position: -117px -28px;
+		}
+	}
+
+	&__select-arrow {
+		position: relative;
+		margin-left: 6px;
+		border-style: solid;
+		border-width: 5px 4px 0;
+		border-color: #9a9a9a transparent transparent;
+	}
+
+	&__options-wrap {
+		margin-top: 4px;
+		position: absolute;
+		width: 100%;
+		left: 0;
+		top: 100%;
+		min-width: max-content;
+		max-height: 212px;
+		flex-direction: column;
+		border: 1px solid #eee;
+		border-radius: var(--bus-iti-radius);
+		box-shadow: 0 0 1px rgba(0, 0, 0, .1);
+		background-color: #fff;
+		z-index: 10;
+		overflow: hidden;
+		display: none;
+
+		.bus-iti-visible-options & {
+			display: flex;
+		}
+	}
+
+	&__options-list {
+		padding-block: 5px;
+		overflow-y: auto;
+		scrollbar-width: thin;
+	}
+
+	&__options-item {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		font-size: 14px;
+		padding: 8px 10px;
+		font-family: sans-serif;
+		color: #000;
+		cursor: pointer;
+		transition: background-color .1s ease-in-out;
+
+		&:hover {
+			background-color: color-mix(in srgb, #000, transparent 93%);
+		}
+	}
+}
