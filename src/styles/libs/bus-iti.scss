@@ -41,7 +41,7 @@
 		border-color: var(--bus-iti-error-color);
 	}
 
-	&:has(input:focus) {
+	&:has(.bus-iti__input:focus) {
 		outline: 1px solid var(--bus-iti-outline-focus-color);
 	}
 
@@ -118,48 +118,13 @@
 	&__options-flag,
 	&__select-flag {
 		display: inline-block;
-		width: 18px;
-		min-width: 18px;
-		height: 13px;
+		width: 19px;
+		height: 14px;
+		flex-shrink: 0;
 		background-color: #c5c5c5;
 		box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 		background-image: url("/bus-iti-flags.png");
 		background-repeat: no-repeat;
-
-		&_ru,
-		&[data-phonemask-flag=ru] {
-			background-position: -285px -281px;
-		}
-
-		&_by,
-		&[data-phonemask-flag=by] {
-			background-position: -89px -51px;
-		}
-
-		&_ua,
-		&[data-phonemask-flag=ua] {
-			background-position: -341px -166px;
-		}
-
-		&_kz,
-		&[data-phonemask-flag=kz] {
-			background-position: -117px -189px;
-		}
-
-		&_cn,
-		&[data-phonemask-flag=cn] {
-			background-position: -61px -74px;
-		}
-
-		&_ca,
-		&[data-phonemask-flag=ca] {
-			background-position: -145px -51px;
-		}
-
-		&_bg,
-		&[data-phonemask-flag=bg] {
-			background-position: -117px -28px;
-		}
 	}
 
 	&__select-arrow {
@@ -185,12 +150,11 @@
 		width: 100%;
 		left: 0;
 		top: 100%;
-		min-width: max-content;
 		max-height: var(--bus-iti-options-max-height);
 		flex-direction: column;
 		border: 1px solid #eee;
 		border-radius: var(--bus-iti-radius);
-		box-shadow: 0 0 1px rgba(0, 0, 0, .1);
+		box-shadow: 0 5px 30px rgba(0, 0, 0, .1);
 		background-color: #fff;
 		z-index: 10;
 		overflow: hidden;
@@ -222,14 +186,26 @@
 
 	}
 
+	&__options-search {
+		padding: 10px;
+		border-bottom: 1px solid #ececec;
+		transition: border-color 0.2s ease-in-out;
+		box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
+
+		&:focus {
+			border-color: var(--bus-iti-loader-color);
+		}
+	}
+
 	&__options-list {
 		list-style: none;
 		padding-block: 5px;
-		overflow-y: auto;
+		overflow: hidden auto;
 		scrollbar-width: thin;
 	}
 
 	&__options-item {
+		user-select: none;
 		display: flex;
 		align-items: center;
 		gap: 10px;
@@ -242,9 +218,30 @@
 
 		@media (any-hover: hover) {
 			&:hover {
-				background-color: color-mix(in srgb, #000, transparent 93%);
+				background-color: color-mix(in srgb, #000, transparent 97%);
 			}
 		}
+
+		&:active {
+			background-color: color-mix(in srgb, #000, transparent 95%);
+		}
+
+		&_active {
+			pointer-events: none;
+			background-color: color-mix(in srgb, var(--bus-iti-loader-color), transparent 80%);
+		}
+	}
+
+	&__options-name {
+		overflow: hidden;
+		flex: 1 1 auto;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		text-wrap: nowrap;
+	}
+
+	&__options-code {
+		flex-shrink: 0;
 	}
 }
 
