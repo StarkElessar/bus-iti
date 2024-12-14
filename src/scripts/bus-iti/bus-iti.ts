@@ -1,11 +1,13 @@
 import { type InputMask } from 'imask';
 import { type BusItiOptions, Country, MaskValue } from './types';
 import { maskData } from './mask-data';
-import { OptionsItem } from './factory-elements/options-item';
 import { ButtonSelect } from './factory-elements/button-select';
+import { listOptionsLoader } from './factory-elements/list-options-loader';
 
 const initialOptions: BusItiOptions = {
 	initialCountry: Country.RU,
+	lazy: true,
+	maskLoaderText: 'Loading...',
 };
 
 export class BusIti {
@@ -18,7 +20,7 @@ export class BusIti {
 	private readonly _input: HTMLInputElement;
 	private readonly _wrapper: HTMLDivElement;
 	private readonly _buttonSelect: ButtonSelect;
-	private _listOptions: HTMLDivElement;
+	private readonly _listOptions: HTMLDivElement;
 
 	constructor(inputId: string, options: Partial<BusItiOptions> = {}) {
 		this._options = Object.assign(initialOptions, options);
@@ -26,7 +28,7 @@ export class BusIti {
 		this._input = document.getElementById(inputId) as HTMLInputElement;
 		this._wrapper = document.createElement('div');
 		this._listOptions = document.createElement('div');
-		this._buttonSelect = new ButtonSelect(this._options.initialCountry);
+		this._buttonSelect = new ButtonSelect(maskData[this._currentCode]);
 
 		this.init();
 	}
@@ -36,6 +38,7 @@ export class BusIti {
 
 		this._input.parentNode!.insertBefore(this._wrapper, this._input);
 		this._input.type = 'tel';
+		this._input.className = 'bus-iti__input';
 		this._input.placeholder = placeholder;
 		this._input.dataset.phonemask = mask;
 		this._input.dataset.countryCode = code;
@@ -50,21 +53,27 @@ export class BusIti {
 	}
 
 	private renderList() {
-		this._listOptions ??= document.createElement('div');
-		const optionsFragment = document.createDocumentFragment();
+		if (!this._listOptions.children.length) {
+			const loader = listOptionsLoader();
+			this._wrapper.append(loader);
 
-		Object.keys(maskData).forEach(key => {
-			const item = new OptionsItem();
-			const maskValue = maskData[key as keyof typeof maskData];
-			const element = item.render(maskValue);
+			import('./factory-elements/options-item').then(m => {
+				loader.remove();
+				const optionsFragment = document.createDocumentFragment();
 
-			optionsFragment.append(element);
-			item.onClick(this.onSelectCountry);
-		});
+				Object.keys(maskData).forEach(key => {
+					optionsFragment.append(m.getOptionsItem({
+						value: maskData[key as keyof typeof maskData],
+						onClick: this.onSelectCountry
+					}));
+				});
 
-		this._listOptions.classList.add('bus-iti__options-wrap');
-		this._listOptions.innerHTML = '<ul class="bus-iti__options-list"></ul>';
-		this._listOptions.children[0].append(optionsFragment);
+				this._listOptions.classList.add('bus-iti__options-wrap');
+				this._listOptions.innerHTML = '<ul class="bus-iti__options-list"></ul>';
+				this._listOptions.children[0].append(optionsFragment);
+			});
+		}
+
 		this._wrapper.append(this._listOptions);
 	}
 
@@ -74,33 +83,37 @@ export class BusIti {
 	}
 
 	private onChangeInputHandle = () => {
-		this._input.dataset.value = this._instanceMask?.unmaskedValue;
+		this._input.dataset.value = maskData[this._currentCode].prefix + this._instanceMask?.unmaskedValue;
 		this._input.toggleAttribute('data-invalid-phonemask', !this.isComplete);
 	};
 
 	private initMask = async () => {
-		this._IMask ??= await import('imask');
+		if (!this._IMask) {
+			try {
+				this._wrapper.classList.add('bus-iti-loading');
+				this._input.value = this._options.maskLoaderText;
+				this._IMask ??= await import('imask');
+			}
+			finally {
+				this._wrapper.classList.remove('bus-iti-loading');
+				this._input.value = '';
+			}
+		}
 
 		if (this._IMask) {
 			this._instanceMask?.destroy();
 			this._instanceMask = this._IMask.default(this._input, {
 				mask: maskData[this._currentCode].mask,
-				lazy: false,
+				lazy: this._options.lazy,
 			});
-			this.setCursorToLastMaskSymbol();
+
+			if (!this._options.lazy) {
+				const { setCursor } = await import('./utils/set-cursor');
+				setCursor(this._input);
+			}
 			this.closeOptions();
 		}
 	};
-
-	private setCursorToLastMaskSymbol() {
-		if (this._input.value) {
-			// Находим индекс последнего "заполненного" символа маски
-			const lastMaskIndex = this._input.value.indexOf('_');
-			// Если подчеркивание найдено, ставим курсор перед ним, иначе в конец строки
-			const position = lastMaskIndex !== -1 ? lastMaskIndex : this._input.value.length;
-			this._input.setSelectionRange(position, position);
-		}
-	}
 
 	private toggleOptions = () => {
 		if (this.visibleOptions) {
@@ -114,8 +127,10 @@ export class BusIti {
 		}
 	};
 
-	private onSelectCountry = ({ code, mask, placeholder }: MaskValue) => {
-		this._buttonSelect.currentCode = code;
+	private onSelectCountry = (currentValue: MaskValue) => {
+		const { code, placeholder, mask  } = currentValue;
+
+		this._buttonSelect.currentValue = currentValue;
 		this._currentCode = code;
 
 		this._input.value = '';
