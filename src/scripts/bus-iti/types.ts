@@ -1,5 +1,7 @@
 export interface BusItiOptions {
 	initialCountry: Country;
+	lazy: boolean;
+	maskLoaderText: string;
 }
 
 export interface MaskValue {
