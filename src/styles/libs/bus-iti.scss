@@ -1,47 +1,118 @@
-.bus-iti {
+:root {
 	--bus-iti-radius: 6px;
+	--bus-iti-height-wrapper: 56px;
+	--bus-iti-gap-wrapper: 4px;
+	--bus-iti-padding-wrapper: 0 10px;
+	--bus-iti-font-size-wrapper: 16px;
+	--bus-iti-font-weight-wrapper: 400;
+	--bus-iti-background-wrapper: #fff;
+	--bus-iti-border-wrapper: 1px solid #d1d1d1;
+	--bus-iti-color-wrapper: #000;
+	--bus-iti-select-arrow-color: #9a9a9a;
+	--bus-iti-error-color: #c43030;
+	--bus-iti-loader-color: #8263d9;
+	--bus-iti-loader-size: 20px;
+	--bus-iti-offset-loader: 20px;
+	--bus-iti-outline-focus-color: rgba(9, 70, 161, 0.5);
+	--bus-iti-options-max-height: 212px;
+}
+
+.bus-iti {
+	$this: &;
 
 	position: relative;
 	display: flex;
-	gap: 10px;
+	gap: var(--bus-iti-gap-wrapper);
 	width: max(100%, 200px);
-	margin: 0;
-	padding: 0 10px 0 0;
+	height: var(--bus-iti-height-wrapper);
+	padding: var(--bus-iti-padding-wrapper);
 	outline: none;
 	box-sizing: border-box;
 	line-height: 133%;
-	height: 56px;
 	border-radius: var(--bus-iti-radius);
-	font-size: 16px;
-	font-weight: 400;
-	background-color: #fff;
-	border: 1px solid #d1d1d1;
-	color: #000;
+	font-size: var(--bus-iti-font-size-wrapper);
+	font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+	font-weight: var(--bus-iti-font-weight-wrapper);
+	background-color: var(--bus-iti-background-wrapper);
+	border:var(--bus-iti-border-wrapper);
+	color: var(--bus-iti-color-wrapper);
 
 	&.error {
-		border-color: #c43030;
+		border-color: var(--bus-iti-error-color);
 	}
 
 	&:has(input:focus) {
-		outline: 1px solid rgba(9, 70, 161, 0.5);
+		outline: 1px solid var(--bus-iti-outline-focus-color);
+	}
+
+	* {
+		margin: 0;
+		border: 0;
+		padding: 0;
+		-webkit-tap-highlight-color: transparent;
+
+		&,
+		&::before,
+		&::after {
+			box-sizing: border-box;
+		}
+
+		&:focus,
+		&:active {
+			outline: none;
+		}
+
+		::-ms-reveal {
+			display: none;
+		}
+	}
+
+	input,
+	button {
+		font-family: inherit;
+	}
+
+	input::-ms-clear {
+		display: none;
+	}
+
+	button {
+		cursor: pointer;
+		user-select: none;
+		background-color: transparent;
+
+		&::-moz-focus-inner {
+			border: 0;
+			padding: 0;
+		}
 	}
 
 	&__select {
-		padding-inline: 10px;
 		display: flex;
 		align-items: center;
 		flex-shrink: 0;
-		cursor: pointer;
-		border-radius: var(--bus-iti-radius) 0 0 var(--bus-iti-radius);
-		transition: background-color .1s ease-in-out;
 
-		&:hover {
-			background-color: color-mix(in srgb, #000, transparent 98%);
+		@media (any-hover: hover) {
+			&:hover {
+				--bus-iti-select-arrow-color: color-mix(in srgb, #9a9a9a, #000 25%);
+			}
 		}
+	}
 
-		&:active {
-			background-color: color-mix(in srgb, #000, transparent 95%);
+	&__input {
+		font-weight: 400;
+		line-height: 133%;
+		transition: color .2s ease-in-out;
+
+		.bus-iti-loading & {
+			color: #444;
+			font-weight: 400;
 		}
+	}
+
+	&__input,
+	&__select-prefix {
+		font-size: 16px;
 	}
 
 	&__options-flag,
@@ -51,7 +122,7 @@
 		min-width: 18px;
 		height: 13px;
 		background-color: #c5c5c5;
-		box-shadow: 0 0 5px rgba(0,0,0,0.3);
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 		background-image: url("/bus-iti-flags.png");
 		background-repeat: no-repeat;
 
@@ -96,7 +167,16 @@
 		margin-left: 6px;
 		border-style: solid;
 		border-width: 5px 4px 0;
-		border-color: #9a9a9a transparent transparent;
+		border-color: var(--bus-iti-select-arrow-color) transparent transparent;
+		transition: transform 0.2s ease-in-out, border-color 0.2s ease-in-out;
+
+		.bus-iti-visible-options & {
+			transform: rotate(180deg);
+		}
+	}
+
+	&__select-prefix {
+		margin-left: 10px;
 	}
 
 	&__options-wrap {
@@ -106,7 +186,7 @@
 		left: 0;
 		top: 100%;
 		min-width: max-content;
-		max-height: 212px;
+		max-height: var(--bus-iti-options-max-height);
 		flex-direction: column;
 		border: 1px solid #eee;
 		border-radius: var(--bus-iti-radius);
@@ -121,7 +201,29 @@
 		}
 	}
 
+	&__options-loader {
+		padding: var(--bus-iti-offset-loader);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 10px;
+		font-size: 14px;
+		color: #444;
+
+		&::before {
+			content: "";
+			width: var(--bus-iti-loader-size);
+			aspect-ratio: 1;
+			border-radius: 50%;
+			border: 2px solid #ececec;
+			border-right-color: var(--bus-iti-loader-color);
+			animation: rotate 1s linear infinite;
+		}
+
+	}
+
 	&__options-list {
+		list-style: none;
 		padding-block: 5px;
 		overflow-y: auto;
 		scrollbar-width: thin;
@@ -138,8 +240,16 @@
 		cursor: pointer;
 		transition: background-color .1s ease-in-out;
 
-		&:hover {
-			background-color: color-mix(in srgb, #000, transparent 93%);
+		@media (any-hover: hover) {
+			&:hover {
+				background-color: color-mix(in srgb, #000, transparent 93%);
+			}
 		}
+	}
+}
+
+@keyframes rotate {
+	to {
+		transform: rotate(1turn);
 	}
 }
