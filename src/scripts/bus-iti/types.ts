@@ -1,24 +1,18 @@
+import type { CODE_COUNTRY } from './model/code-country';
+
 export interface BusItiOptions {
-	initialCountry: Country;
+	initialCountry: CountryCode;
 	lazy: boolean;
 	maskLoaderText: string;
 }
 
-export interface MaskValue {
-	mask: string;
-	placeholder: string;
-	code: Country;
+export type CountryCode = typeof CODE_COUNTRY[keyof typeof CODE_COUNTRY];
+
+export type MaskItem = {
+	code: CountryCode;
 	country: string;
 	prefix: string;
-}
+	mask: string;
+};
 
-
-export const enum Country {
-	RU = 'ru',
-	BY = 'by',
-	UA = 'ua',
-	KZ = 'kz',
-	CN = 'cn',
-	CA = 'ca',
-	BG = 'bg',
-}
+export type MaskListMap = Record<CountryCode, MaskItem>;
