@@ -1,5 +1,10 @@
 @import "mixins";
-@import "animation-keyframes";
+
+html,
+body {
+	height: 100%;
+	margin: 0;
+}
 
 .wrapper {
 	display: flex;
