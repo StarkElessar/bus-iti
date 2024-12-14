@@ -1,4 +1,5 @@
-import type { MaskValue } from '../types';
+import type { MaskItem } from '../types';
+import { FLAGS_POSITION } from '../model/flags-position';
 
 type ButtonSelectCallback = () => void;
 
@@ -6,17 +7,17 @@ export class ButtonSelect {
 	private readonly _button: HTMLButtonElement;
 	private readonly _flagElement: HTMLSpanElement;
 	private readonly _prefixElement: HTMLSpanElement;
-	private _currentValue: MaskValue;
+	private _currentValue: MaskItem;
 	private _toggleVisibleOptionsEvent: ButtonSelectCallback[] = [];
 
-	constructor(value: MaskValue) {
+	constructor(value: MaskItem) {
 		this._currentValue = value;
 		this._button = document.createElement('button');
 
 		this._button.type = 'button';
 		this._button.classList.add('bus-iti__select');
 		this._button.innerHTML = `
-			<span class="bus-iti__select-flag" data-phonemask-flag="${this._currentValue.code}"></span>
+			<span class="bus-iti__select-flag" style="background-position: ${FLAGS_POSITION[this._currentValue.code]}"></span>
 			<span class="bus-iti__select-arrow"></span>
 			<span class="bus-iti__select-prefix">${this._currentValue.prefix}</span>
 		`;
@@ -33,10 +34,11 @@ export class ButtonSelect {
 		return this._button;
 	}
 
-	public set currentValue(value: MaskValue) {
+	public set currentValue(value: MaskItem) {
 		if (this._currentValue.code !== value.code) {
 			this._currentValue = value;
 			this._flagElement.setAttribute('data-phonemask-flag', value.code);
+			this._flagElement.style.backgroundPosition = FLAGS_POSITION[value.code];
 			this._prefixElement.textContent = value.prefix;
 		}
 	}
