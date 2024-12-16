@@ -9,10 +9,10 @@
 		"dev:open": "vite --open",
 		"build": "tsc && vite build",
 		"preview": "vite preview",
-		"deploy": "gh-pages -d dist",	
+		"deploy": "gh-pages -d dist",
 		"predeploy": "bun run build"
 	},
-	"homepage": "https://StarkElessar.github.io/bus-iti/",
+	"homepage": "https://StarkElessar.github.io/international-phone-number",
 	"devDependencies": {
 		"@archoleat/stylelint-config-extended-scss": "^1.6.8",
 		"@eslint/js": "^9.1.1",

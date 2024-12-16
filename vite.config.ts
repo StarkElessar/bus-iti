@@ -3,7 +3,10 @@ import { defineConfig } from 'vite';
 import checker from 'vite-plugin-checker';
 
 export default defineConfig(({ command }) => {
+	const isDev = command === 'serve';
+
 	return {
+		base: isDev ? '/' : '/international-phone-number',
 		server: {
 			host: '0.0.0.0',
 			port: 3000
@@ -12,7 +15,7 @@ export default defineConfig(({ command }) => {
 			transformer: 'postcss'
 		},
 		plugins: [
-			checker({ typescript: command === 'serve' }),
+			checker({ typescript: isDev }),
 		],
 		build: {
 			rollupOptions: {
