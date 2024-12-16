@@ -15,19 +15,19 @@ export class ButtonSelect {
 		this._button = document.createElement('button');
 
 		this._button.type = 'button';
-		this._button.classList.add('bus-iti__select');
+		this._button.classList.add('ipn__select');
 		this._button.innerHTML = `
-			<span class="bus-iti__select-flag" style="background-position: ${FLAGS_POSITION[this._currentValue.code]}"></span>
-			<span class="bus-iti__select-arrow"></span>
-			<span class="bus-iti__select-prefix">${this._currentValue.prefix}</span>
+			<span class="ipn__select-flag" style="background-position: ${FLAGS_POSITION[this._currentValue.code]}"></span>
+			<span class="ipn__select-arrow"></span>
+			<span class="ipn__select-prefix">${this._currentValue.prefix}</span>
 		`;
 
 		this._button.onclick = () => {
 			this._toggleVisibleOptionsEvent.forEach(cb => cb());
 		};
 
-		this._flagElement = this._button.querySelector('.bus-iti__select-flag')!;
-		this._prefixElement = this._button.querySelector('.bus-iti__select-prefix')!;
+		this._flagElement = this._button.querySelector('.ipn__select-flag')!;
+		this._prefixElement = this._button.querySelector('.ipn__select-prefix')!;
 	}
 
 	public get buttonSelect() {

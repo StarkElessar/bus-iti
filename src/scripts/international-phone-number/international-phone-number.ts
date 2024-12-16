@@ -1,5 +1,5 @@
 import { type InputMask } from 'imask';
-import type { BusItiOptions, MaskItem, CountryCode } from './types';
+import type { InternationalPhoneMaskOptions, MaskItem, CountryCode } from './types';
 import { maskList } from './model/mask-list';
 import { CODE_COUNTRY } from './model/code-country';
 import { ButtonSelect } from './factory-elements/button-select';
@@ -7,36 +7,36 @@ import { listOptionsLoader } from './factory-elements/list-options-loader';
 import { SearchInput } from './factory-elements/search-input';
 import { emptyData } from './factory-elements/empty-data.ts';
 
-const initialOptions: BusItiOptions = {
-	initialCountry: CODE_COUNTRY.RU,
+const initialOptions: InternationalPhoneMaskOptions = {
+	initialCountry: CODE_COUNTRY.UA,
 	lazy: true,
 	maskLoaderText: 'Loading...',
 };
 
 const CLASS_NAMES = <const> {
-	wrapper: 'bus-iti',
-	input: 'bus-iti__input',
-	optionsWrapper: 'bus-iti__options-wrap',
-	listItems: 'bus-iti__options-list',
-	selectedItem: 'bus-iti__options-item_active',
-	visibleOptions: 'bus-iti-visible-options',
-	loadingIMask: 'bus-iti-loading',
+	wrapper: 'ipn',
+	input: 'ipn__input',
+	optionsWrapper: 'ipn__options-wrap',
+	listItems: 'ipn__options-list',
+	selectedItem: 'ipn__options-item_active',
+	visibleOptions: 'ipn-visible-options',
+	loadingIMask: 'ipn-loading',
 }
 
-export class BusIti {
+export class InternationalPhoneNumber {
 	private _IMask: typeof import('imask') | null = null;
 	private _instanceMask: InputMask | null = null;
 
 	private _currentCode: CountryCode;
 
-	private readonly _options: BusItiOptions;
+	private readonly _options: InternationalPhoneMaskOptions;
 	private readonly _input: HTMLInputElement;
 	private readonly _wrapper: HTMLDivElement;
 	private readonly _buttonSelect: ButtonSelect;
 	private readonly _listOptions: HTMLDivElement;
 	private readonly _searchInput: SearchInput;
 
-	constructor(inputId: string, options: Partial<BusItiOptions> = {}) {
+	constructor(inputId: string, options: Partial<InternationalPhoneMaskOptions> = {}) {
 		this._options = Object.assign(initialOptions, options);
 		this._currentCode = this._options.initialCountry;
 		this._input = document.getElementById(inputId) as HTMLInputElement;

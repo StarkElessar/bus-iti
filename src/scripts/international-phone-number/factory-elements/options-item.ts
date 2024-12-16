@@ -10,13 +10,13 @@ interface OptionsItemRenderProps {
 export const getOptionsItem = ({ value, onClick, isActive }: OptionsItemRenderProps) => {
 	const item = document.createElement('li');
 
-	item.className = `bus-iti__options-item ${isActive ? 'bus-iti__options-item_active' : ''}`;
+	item.className = `ipn__options-item ${isActive ? 'ipn__options-item_active' : ''}`;
 	item.dataset.phonemaskCountryCode = value.code;
 	item.title = value.country;
 	item.innerHTML = `
-		<span class="bus-iti__options-flag" style="background-position: ${FLAGS_POSITION[value.code]}"></span>
-		<span class="bus-iti__options-name">${value.country}</span>
-		<span class="bus-iti__options-code">${value.prefix}</span>
+		<span class="ipn__options-flag" style="background-position: ${FLAGS_POSITION[value.code]}"></span>
+		<span class="ipn__options-name">${value.country}</span>
+		<span class="ipn__options-code">${value.prefix}</span>
 	`;
 	item.onclick = () => onClick(value);
 

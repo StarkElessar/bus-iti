@@ -1,5 +1,5 @@
-import { BusIti } from '@scripts/bus-iti';
+import { InternationalPhoneNumber } from '@scripts/international-phone-number';
 
 document.addEventListener("DOMContentLoaded", () => {
-	new BusIti('phone');
+	new InternationalPhoneNumber('phone');
 });

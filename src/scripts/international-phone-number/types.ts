@@ -1,6 +1,6 @@
 import type { CODE_COUNTRY } from './model/code-country';
 
-export interface BusItiOptions {
+export interface InternationalPhoneMaskOptions {
 	initialCountry: CountryCode;
 	lazy: boolean;
 	maskLoaderText: string;

@@ -13,7 +13,7 @@ export class SearchInput {
 
 		this._searchElement.type = 'text';
 		this._searchElement.placeholder = 'Страна или код страны'
-		this._searchElement.className = 'bus-iti__options-search';
+		this._searchElement.className = 'ipn__options-search';
 
 		this._searchElement.oninput = (event) => {
 			const target = event.target as HTMLInputElement;

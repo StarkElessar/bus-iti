@@ -1,86 +1,85 @@
 :root {
-	--bus-iti-radius: 6px;
-	--bus-iti-height-wrapper: 56px;
-	--bus-iti-gap-wrapper: 4px;
-	--bus-iti-padding-wrapper: 0 10px;
-	--bus-iti-font-size-wrapper: 16px;
-	--bus-iti-font-weight-wrapper: 400;
-	--bus-iti-background-wrapper: #fff;
-	--bus-iti-border-wrapper: 1px solid #d1d1d1;
-	--bus-iti-color-wrapper: #000;
-	--bus-iti-select-arrow-color: #9a9a9a;
-	--bus-iti-error-color: #c43030;
-	--bus-iti-loader-color: #8263d9;
-	--bus-iti-loader-size: 20px;
-	--bus-iti-offset-loader: 20px;
-	--bus-iti-outline-focus-color: rgba(9, 70, 161, 0.5);
-	--bus-iti-options-max-height: 212px;
+	--ipn-radius: 6px;
+	--ipn-height-wrapper: 56px;
+	--ipn-gap-wrapper: 4px;
+	--ipn-padding-wrapper: 0 10px;
+	--ipn-font-size-wrapper: 16px;
+	--ipn-font-weight-wrapper: 400;
+	--ipn-background-wrapper: #fff;
+	--ipn-border-wrapper: 1px solid #d1d1d1;
+	--ipn-color-wrapper: #000;
+	--ipn-select-arrow-color: #9a9a9a;
+	--ipn-error-color: #c43030;
+	--ipn-loader-color: #8263d9;
+	--ipn-loader-size: 20px;
+	--ipn-offset-loader: 20px;
+	--ipn-outline-focus-color: rgba(9, 70, 161, 0.5);
+	--ipn-options-max-height: 212px;
 }
 
-.bus-iti {
+.ipn {
 	$this: &;
 
 	position: relative;
 	display: flex;
-	gap: var(--bus-iti-gap-wrapper);
+	gap: var(--ipn-gap-wrapper);
 	width: max(100%, 200px);
-	height: var(--bus-iti-height-wrapper);
-	padding: var(--bus-iti-padding-wrapper);
+	height: var(--ipn-height-wrapper);
+	padding: var(--ipn-padding-wrapper);
 	outline: none;
 	box-sizing: border-box;
 	line-height: 133%;
-	border-radius: var(--bus-iti-radius);
-	font-size: var(--bus-iti-font-size-wrapper);
+	border-radius: var(--ipn-radius);
+	font-size: var(--ipn-font-size-wrapper);
 	font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
-	font-weight: var(--bus-iti-font-weight-wrapper);
-	background-color: var(--bus-iti-background-wrapper);
-	border:var(--bus-iti-border-wrapper);
-	color: var(--bus-iti-color-wrapper);
+	font-weight: var(--ipn-font-weight-wrapper);
+	background-color: var(--ipn-background-wrapper);
+	border:var(--ipn-border-wrapper);
+	color: var(--ipn-color-wrapper);
 
 	&.error {
-		border-color: var(--bus-iti-error-color);
+		border-color: var(--ipn-error-color);
 	}
 
-	&:has(.bus-iti__input:focus) {
-		outline: 1px solid var(--bus-iti-outline-focus-color);
+	&:has(.ipn__input:focus) {
+		outline: 1px solid var(--ipn-outline-focus-color);
 	}
 
-	* {
-		margin: 0;
+	&__input,
+	&__select,
+	&__options-search {
+		font-family: inherit;
 		border: 0;
-		padding: 0;
-		-webkit-tap-highlight-color: transparent;
-
-		&,
-		&::before,
-		&::after {
-			box-sizing: border-box;
-		}
 
 		&:focus,
 		&:active {
 			outline: none;
 		}
-
-		::-ms-reveal {
-			display: none;
-		}
 	}
 
-	input,
-	button {
-		font-family: inherit;
+	&__select,
+	&__input {
+		padding: 0;
 	}
 
-	input::-ms-clear {
-		display: none;
-	}
-
-	button {
+	&__options-item,
+	&__select {
 		cursor: pointer;
-		color: inherit;
 		user-select: none;
+	}
+
+	&__select {
+		display: flex;
+		align-items: center;
+		flex-shrink: 0;
+		color: inherit;
 		background-color: transparent;
+
+		@media (any-hover: hover) {
+			&:hover {
+				--ipn-select-arrow-color: color-mix(in srgb, #9a9a9a, #000 25%);
+			}
+		}
 
 		&::-moz-focus-inner {
 			border: 0;
@@ -88,26 +87,19 @@
 		}
 	}
 
-	&__select {
-		display: flex;
-		align-items: center;
-		flex-shrink: 0;
-
-		@media (any-hover: hover) {
-			&:hover {
-				--bus-iti-select-arrow-color: color-mix(in srgb, #9a9a9a, #000 25%);
-			}
+	&__input,
+	&__options-search {
+		&::-ms-clear {
+			display: none;
 		}
 	}
 
 	&__input {
 		font-weight: 400;
-		line-height: 133%;
 		transition: color .2s ease-in-out;
 
-		.bus-iti-loading & {
+		.ipn-loading & {
 			color: #444;
-			font-weight: 400;
 		}
 	}
 
@@ -124,7 +116,7 @@
 		flex-shrink: 0;
 		background-color: #c5c5c5;
 		box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-		background-image: url("/bus-iti-flags.png");
+		background-image: url("/ipn-flags.png");
 		background-repeat: no-repeat;
 	}
 
@@ -133,10 +125,10 @@
 		margin-left: 6px;
 		border-style: solid;
 		border-width: 5px 4px 0;
-		border-color: var(--bus-iti-select-arrow-color) transparent transparent;
+		border-color: var(--ipn-select-arrow-color) transparent transparent;
 		transition: transform 0.2s ease-in-out, border-color 0.2s ease-in-out;
 
-		.bus-iti-visible-options & {
+		.ipn-visible-options & {
 			transform: rotate(180deg);
 		}
 	}
@@ -151,23 +143,23 @@
 		width: 100%;
 		left: 0;
 		top: 100%;
-		max-height: var(--bus-iti-options-max-height);
+		max-height: var(--ipn-options-max-height);
 		flex-direction: column;
 		border: 1px solid #eee;
-		border-radius: var(--bus-iti-radius);
+		border-radius: var(--ipn-radius);
 		box-shadow: 0 5px 30px rgba(0, 0, 0, .1);
 		background-color: #fff;
 		z-index: 10;
 		overflow: hidden;
 		display: none;
 
-		.bus-iti-visible-options & {
+		.ipn-visible-options & {
 			display: flex;
 		}
 	}
 
 	&__options-loader {
-		padding: var(--bus-iti-offset-loader);
+		padding: var(--ipn-offset-loader);
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -177,11 +169,12 @@
 
 		&::before {
 			content: "";
-			width: var(--bus-iti-loader-size);
+			box-sizing: border-box;
+			width: var(--ipn-loader-size);
 			aspect-ratio: 1;
 			border-radius: 50%;
 			border: 2px solid #ececec;
-			border-right-color: var(--bus-iti-loader-color);
+			border-right-color: var(--ipn-loader-color);
 			animation: rotate 1s linear infinite;
 		}
 
@@ -194,19 +187,19 @@
 		box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
 
 		&:focus {
-			border-color: var(--bus-iti-loader-color);
+			border-color: var(--ipn-loader-color);
 		}
 	}
 
 	&__options-list {
 		list-style: none;
-		padding-block: 5px;
+		margin-block: 0;
+		padding: 5px 0;
 		overflow: hidden auto;
 		scrollbar-width: thin;
 	}
 
 	&__options-item {
-		user-select: none;
 		display: flex;
 		align-items: center;
 		gap: 10px;
@@ -214,7 +207,6 @@
 		padding: 8px 10px;
 		font-family: sans-serif;
 		color: #000;
-		cursor: pointer;
 		transition: background-color .1s ease-in-out;
 
 		@media (any-hover: hover) {
@@ -229,7 +221,7 @@
 
 		&_active {
 			pointer-events: none;
-			background-color: color-mix(in srgb, var(--bus-iti-loader-color), transparent 80%);
+			background-color: color-mix(in srgb, var(--ipn-loader-color), transparent 80%);
 		}
 	}
 
