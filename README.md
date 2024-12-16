@@ -16,9 +16,13 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 ```
 
+- At the moment the source code of the script is [here](https://github.com/StarkElessar/international-phone-number/tree/master/src/scripts/international-phone-number)
+- You can get the styles [here](https://github.com/StarkElessar/international-phone-number/blob/master/src/styles/libs/international-phone-number.scss)
+- And you can get a picture of the flags [here](https://github.com/StarkElessar/international-phone-number/blob/master/public/ipn-flags.png)
+
 Additional description of the class and its options in the development... 😴
 
 
 💲 You can donate any amount to a cryptocurrency wallet to support the project.
 
-USDC coin, TRC20 network, address: `TNm4cjXDPu4uxjXf7Te9UQYZA5oENmMJdE`
+USDT coin, TRC20 network, address: `TNm4cjXDPu4uxjXf7Te9UQYZA5oENmMJdE`
