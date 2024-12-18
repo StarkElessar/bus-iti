@@ -22,9 +22,18 @@
 		"noFallthroughCasesInSwitch": true,
 		"baseUrl": ".",
 		"paths": {
-			"@styles/*": ["./src/styles/*"],
-			"@scripts/*": ["./src/scripts/*"]
+			"@styles/*": [
+				"./src/styles/*"
+			],
+			"@scripts/*": [
+				"./src/scripts/*"
+			]
 		}
 	},
-	"include": ["src", "vite-plugins/**/*.ts", "src/types/**/*.d.ts"]
+	"include": [
+		"src",
+		"vite-plugins/**/*.ts",
+		"src/types/**/*.d.ts",
+		"example/**/*.ts"
+	]
 }
