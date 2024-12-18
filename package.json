@@ -9,7 +9,7 @@
 			"import": "./dist/international-phone-number.js"
 		},
 		"./style.css": {
-			"import": "./dist/style.css"
+			"import": "./dist/assets/style.css"
 		}
 	},
 	"files": ["dist"],

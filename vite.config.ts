@@ -27,13 +27,13 @@ export default defineConfig(({ command }) => {
 				formats: ['es'],
 				fileName: 'international-phone-number',
 			},
-		},
-		rollupOptions: {
-			external: ['imask'],
-			output: {
-				assetsFileNames: 'assets/[name][extname]',
-				entryFileNames: '[name].js'
-			}
+			rollupOptions: {
+				external: ['imask'],
+				output: {
+					assetFileNames: 'assets/[name][extname]',
+					entryFileNames: '[name].js'
+				}
+			},
 		},
 		resolve: {
 			alias: {
