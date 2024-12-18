@@ -5,7 +5,7 @@ import { CODE_COUNTRY } from './model/code-country';
 import { ButtonSelect } from './factory-elements/button-select';
 import { listOptionsLoader } from './factory-elements/list-options-loader';
 import { SearchInput } from './factory-elements/search-input';
-import { emptyData } from './factory-elements/empty-data.ts';
+import { emptyData } from './factory-elements/empty-data';
 
 const initialOptions: InternationalPhoneMaskOptions = {
 	initialCountry: CODE_COUNTRY.UA,
